@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="block">
+    <div class="background" style="background-image: url('img/bg1.jpg')"></div>
+    <div class="background" style="background-image: url('img/bg2.jpg')"></div>
+    <div class="background" style="background-image: url('img/bg3.jpg')"></div>
+
+    <div class="text-wrapper">
+      <div class="text">Lorem impsum</div>
+    </div>
+  </div>
+
+  <script>
+
+    const ZOOM_OUT_CLASS = 'zoom-out'
+    const FADE_IN_CLASS = 'fade-in'
+
+    const ZOOM_INTERVAL = 6000
+    const FADE_DELAY = ZOOM_INTERVAL - 500
+
+    const backgrounds = document.querySelectorAll('.background');
+    const backgroundsAmount = backgrounds.length
+
+    let prevBackgroundIndex = backgroundsAmount - 1;
+    let activeBackgroundIndex = 0;
+    let nextBackgroundIndex = 1;
+
+
+    const init = () => {
+      backgrounds[activeBackgroundIndex].classList.add(ZOOM_OUT_CLASS);
+      setTimeout(() => {backgrounds[nextBackgroundIndex].classList.add(FADE_IN_CLASS)}, FADE_DELAY)
+
+      setInterval(setZoomAnimationHandler, ZOOM_INTERVAL)
+    }
+
+    const changeActiveIndexHandler = () => {
+      prevBackgroundIndex = activeBackgroundIndex === 0 ? 0 : activeBackgroundIndex
+      activeBackgroundIndex = activeBackgroundIndex === backgroundsAmount - 1 ? 0 : activeBackgroundIndex + 1
+      nextBackgroundIndex = nextBackgroundIndex === backgroundsAmount - 1 ? 0 : nextBackgroundIndex + 1
+
+      // console.log('prev: ', prevBackgroundIndex)
+      // console.log('active: ', activeBackgroundIndex)
+      // console.log('next: ', nextBackgroundIndex)
+    }
+
+    const setZoomAnimationHandler = () => {
+      changeActiveIndexHandler();
+
+      backgrounds[prevBackgroundIndex].classList.remove(ZOOM_OUT_CLASS, FADE_IN_CLASS)
+
+      backgrounds[activeBackgroundIndex].classList.add(ZOOM_OUT_CLASS)
+      backgrounds[activeBackgroundIndex].classList.remove(FADE_IN_CLASS)
+
+
+      // backgrounds[nextBackgroundIndex].classList.add(FADE_IN_CLASS)
+
+      setTimeout(() => {backgrounds[nextBackgroundIndex].classList.add(FADE_IN_CLASS)}, FADE_DELAY)
+
+
+    }
+
+    init();
+  </script>
+</body>
+</html>
