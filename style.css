@@ -76,13 +76,13 @@ body {
 }
 
 @keyframes translateLeft {
-  100% {
+  90%, 100% {
     transform: translateX(-100%)
   }
 }
 
 @keyframes translateRight {
-  100% {
+  90%, 100% {
     transform: translateX(100.2%)
   }
 }
